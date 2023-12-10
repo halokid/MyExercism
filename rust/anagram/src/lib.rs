@@ -1,28 +1,35 @@
-use std::fmt;
-use std::fmt::Formatter;
+use std::collections::HashSet;
 
-fn all_to_minutes(total_min: i32, day_min: i32) -> i32 {
-    (total_min % day_min + day_min ) % day_min
+pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'a str> {
+  let word_lower = word.to_lowercase();
+  let word_sorted = do_sorted(&word_lower);
+
+  possible_anagrams
+    .iter()
+    .filter(|item| {
+      let item_lower = item.to_lowercase();
+        let item_sorted = do_sorted(item);
+      condition_one(word_lower.clone(), item_lower.clone()) &&
+        condition_two(word_lower, item_lower) &&
+        condition_three(word_sorted, item_sorted)
+    }).copied().collect()
 }
 
-#[derive(Debug, PartialEq)]
-pub struct Clock {
-    hours: i32,
-    mins: i32,
+fn do_sorted(s: &str) -> Vec<char> {
+  let mut schars: Vec<char> = s.chars().collect();
+  schars.sort_unstable();
+  schars
 }
 
-impl fmt::Display for Clock {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "{:02}{:02}", self.hours, self.mins)
-    }
+fn condition_one(s: String, d: String) -> bool {
+  s.len() != d.len()
 }
 
-impl Clock {
-    pub fn new(hours: i32, minutes: i32) -> Self {
-        todo!()
-    }
-
-    pub fn add_minutes(&self, minutes: i32) -> Self {
-        todo!("Add {minutes} minutes to existing Clock time");
-    }
+fn condition_two(s_low: String, d_low: String) -> bool {
+  s_low != d_low
 }
+
+fn condition_three(s_sorted: Vec<char>, d_sorted: Vec<char>) -> bool {
+  s_sorted == d_sorted
+}
+

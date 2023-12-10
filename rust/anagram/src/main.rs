@@ -1,10 +1,19 @@
+use std::collections::HashSet;
+
 fn main() {
-  let a = 6 % 4;
-  println!("a -->>> {}", a);
+  let s = "hello world";
+  let char_vec: Vec<char> = s.chars().collect();
+  println!("{:?}", char_vec);
 
-  let b = 4 % 6;
-  println!("b -->>> {}", b);
+  println!("---------------------------------");
 
-  let c = -6 % 4;
-  println!("c -->>> {}", c);
+  let inputs = ["hello", "world", "zombies", "pants"];
+  let res: HashSet<&str> = inputs.iter().filter(|item| {
+    println!("item -->>> {}", item);
+    let item_lower = item.to_lowercase();
+    // true
+    item.len() > 5
+  }).copied().collect();
+  println!("res -->>> {:?}", res);
 }
+
