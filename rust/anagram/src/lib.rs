@@ -8,10 +8,10 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'
     .iter()
     .filter(|item| {
       let item_lower = item.to_lowercase();
-        let item_sorted = do_sorted(item);
+      let item_sorted = do_sorted(&item_lower);
       condition_one(word_lower.clone(), item_lower.clone()) &&
-        condition_two(word_lower, item_lower) &&
-        condition_three(word_sorted, item_sorted)
+        condition_two(word_lower.clone(), item_lower.clone()) &&
+        condition_three(word_sorted.clone(), item_sorted.clone())
     }).copied().collect()
 }
 
@@ -22,7 +22,7 @@ fn do_sorted(s: &str) -> Vec<char> {
 }
 
 fn condition_one(s: String, d: String) -> bool {
-  s.len() != d.len()
+  s.len() == d.len()
 }
 
 fn condition_two(s_low: String, d_low: String) -> bool {
@@ -30,6 +30,8 @@ fn condition_two(s_low: String, d_low: String) -> bool {
 }
 
 fn condition_three(s_sorted: Vec<char>, d_sorted: Vec<char>) -> bool {
+  println!("condition_three s_sorted: {:?}", s_sorted);
+  println!("condition_three d_sorted: {:?}", d_sorted);
   s_sorted == d_sorted
 }
 
