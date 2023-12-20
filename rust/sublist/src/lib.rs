@@ -1,3 +1,5 @@
+mod lib2;
+
 #[derive(Debug, PartialEq, Eq)]
 pub enum Comparison {
   Equal,
@@ -7,7 +9,6 @@ pub enum Comparison {
 }
 
 pub fn sublist<T: PartialEq>(_first_list: &[T], _second_list: &[T]) -> Comparison {
-  // !todo!()
   let first_len = _first_list.len();
   let second_len = _second_list.len();
 
@@ -19,29 +20,29 @@ pub fn sublist<T: PartialEq>(_first_list: &[T], _second_list: &[T]) -> Compariso
     return Comparison::Superlist;
   }
 
-  let (min_len, flag) = min(first_len, second_len);
+  if first_len <= second_len {
+    let start_position = find_position(_first_list.get(0), _second_list);
 
-  for i in 0..min_len {
-    if _first_list[i] != _second_list[i] {
+    if (start_position + first_len > second_len) || start_position == 0 {
       return Comparison::Unequal;
     }
+
+    // if _first_list == _second_list[start_position..second_len]
   }
 
-  if flag == 0 {
-    return Comparison::Equal;
-  }
-  if min_len == first_len {
-    return Comparison::Sublist;
-  }
-  return Comparison::Superlist;
+  Comparison::Sublist
 }
 
-fn min(a: usize, b: usize) -> (usize, usize) {
-  if a == b {
-    return (a, 0);
+// find start position for item in collection
+fn find_position<T: PartialEq>(item: T, list: &[T]) -> usize {
+  for i in 0..list.len() {
+    if list[i] == item {
+      return i;
+    }
   }
-  if a < b {
-    return (a, 1);
-  }
-  return (b, 1);
+  return 0;
 }
+
+
+
+
