@@ -14,10 +14,24 @@ pub fn annotate(minefield: &[&str]) -> Vec<String> {
   let mut res = vec![];
 
   for (row_line_number, row) in minefield.iter().enumerate() {
+    let mut new_row = String::new();
+    for (row_item_number, item) in row.as_bytes().iter().enumerate() {
+      if *item == MINE {
+        new_row.push(*item as char)
+      } else {
+        let mine_num = count_mines(minefield, row_item_number, row_line_number);
 
+        if mine_num > 0 {
+          new_row.push(char::from_digit(mine_num as u32, 10).unwrap())
+        } else {
+          new_row.push(' ');
+        }
+      }
+    }
+
+    res.push(new_row);
   }
-
-  ()
+  res
 }
 
 
