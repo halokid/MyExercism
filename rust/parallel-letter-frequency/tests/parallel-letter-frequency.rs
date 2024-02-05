@@ -116,3 +116,5 @@ fn non_integer_multiple_of_threads() {
     assert_eq!(frequency::frequency(&v[..], 4), hm);
 }
 
+
+

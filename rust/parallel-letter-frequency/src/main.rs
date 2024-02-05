@@ -1,6 +1,9 @@
 use std::collections::HashMap;
+// use std::sync::{Mutex, Arc};
+use tokio::time::{Duration};
+// use tokio::task;
 use tokio::time;
-use std::time::{Instant, Duration};
+use std::time::Instant;
 
 async fn task_one() -> i32 {
   println!("Task one starting");
@@ -17,7 +20,6 @@ async fn task_two() -> i32 {
 
   9
 }
-
 
 async fn worker_function(worker_id: u32) {
   // Your asynchronous worker function implementation here
@@ -61,6 +63,9 @@ async fn main() {
   let worker3 = worker_function(3);
 
   tokio::join!(worker1, worker2, worker3);
+
+  println!("---------------------------------------------------");
+  // main_c1()
 }
 
 fn check_key() {
@@ -78,8 +83,5 @@ fn check_key() {
   }
 }
 
-
-
-
-
+// -----------------------------------------------------------------------
 
