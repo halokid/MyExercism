@@ -8,3 +8,4 @@ others/exercise
 /.idea
 /rust/parallel-letter-frequency/target
 /rust/parallel-letter-frequency/.idea
+/rust/poker/.idea
