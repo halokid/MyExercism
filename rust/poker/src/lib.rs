@@ -1,11 +1,3 @@
-/// Given a list of poker hands, return a list of those hands which win.
-///
-/// Note the type signature: this function should return _the same_ reference to
-/// the winning hand(s) as were passed in, not reconstructed strings which happen to be equal.
-/// Given a list of poker hands, return a list of those hands which win.
-///
-/// Note the type signature: this function should return _the same_ reference to
-/// the winning hand(s) as were passed in, not reconstructed strings which happen to be equal.
 use std::cmp::Reverse;
 use std::collections::{BinaryHeap, HashMap};
 
@@ -15,6 +7,7 @@ pub fn winning_hands<'a>(hands: &[&'a str]) -> Vec<&'a str> {
     println!("winning_hands hands -->>> {:?}", hands);
 
     let (winning, s) = hands.pop().unwrap();
+    println!("winning -->>> {:?}", winning);
 
     let mut result = vec![s];
 
@@ -65,8 +58,10 @@ impl PokerHand {
         println!("groups 1 -->>> {:?}", groups);
 
         let mut groups: Vec<_> = groups.into_iter().map(|(v, c)| (c, v)).collect();
-        groups.sort_unstable_by_key(|&x| Reverse(x));
         println!("groups 2 -->>> {:?}", groups);
+
+        groups.sort_unstable_by_key(|&x| Reverse(x));
+        println!("groups 3 -->>> {:?}", groups);
 
         let (mut counts, mut values): (Vec<_>, Vec<_>) = groups.iter().copied().unzip();
         println!("counts 1 -->>> {:?}, values 1 -->>> {:?}", counts, values);
