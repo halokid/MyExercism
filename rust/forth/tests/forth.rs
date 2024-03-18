@@ -216,6 +216,7 @@ fn over_with_three() {
     assert!(f.eval("1 2 3 over").is_ok());
     assert_eq!(vec![1, 2, 3, 2], f.stack());
 }
+
 #[test]
 #[ignore]
 fn over_case_insensitive() {
@@ -223,6 +224,7 @@ fn over_case_insensitive() {
     assert!(f.eval("1 2 OVER Over over").is_ok());
     assert_eq!(vec![1, 2, 1, 2, 1], f.stack());
 }
+
 #[test]
 #[ignore]
 fn over_error() {
@@ -230,6 +232,7 @@ fn over_error() {
     assert_eq!(Err(Error::StackUnderflow), f.eval("1 over"));
     assert_eq!(Err(Error::StackUnderflow), f.eval("over"));
 }
+
 // User-defined words
 #[test]
 #[ignore]
@@ -239,6 +242,7 @@ fn can_consist_of_built_in_words() {
     assert!(f.eval("1 dup-twice").is_ok());
     assert_eq!(vec![1, 1, 1], f.stack());
 }
+
 #[test]
 #[ignore]
 fn execute_in_the_right_order() {
@@ -247,6 +251,7 @@ fn execute_in_the_right_order() {
     assert!(f.eval("countup").is_ok());
     assert_eq!(vec![1, 2, 3], f.stack());
 }
+
 #[test]
 #[ignore]
 fn redefining_an_existing_word() {
@@ -272,6 +277,7 @@ fn user_defined_words_are_case_insensitive() {
     assert!(f.eval("1 FOO Foo foo").is_ok());
     assert_eq!(vec![1, 1, 1, 1], f.stack());
 }
+
 #[test]
 #[ignore]
 fn definitions_are_case_insensitive() {
@@ -280,6 +286,7 @@ fn definitions_are_case_insensitive() {
     assert!(f.eval("1 swap").is_ok());
     assert_eq!(vec![1, 1, 1, 1], f.stack());
 }
+
 #[test]
 #[ignore]
 fn redefining_a_built_in_operator() {
@@ -288,6 +295,7 @@ fn redefining_a_built_in_operator() {
     assert!(f.eval("3 4 +").is_ok());
     assert_eq!(vec![12], f.stack());
 }
+
 #[test]
 #[ignore]
 fn can_use_different_words_with_the_same_name() {
@@ -298,6 +306,7 @@ fn can_use_different_words_with_the_same_name() {
     assert!(f.eval("bar foo").is_ok());
     assert_eq!(vec![5, 6], f.stack());
 }
+
 #[test]
 #[ignore]
 fn can_define_word_that_uses_word_with_the_same_name() {
@@ -307,12 +316,14 @@ fn can_define_word_that_uses_word_with_the_same_name() {
     assert!(f.eval("foo").is_ok());
     assert_eq!(vec![11], f.stack());
 }
+
 #[test]
 #[ignore]
 fn defining_a_number() {
     let mut f = Forth::new();
     assert_eq!(Err(Error::InvalidWord), f.eval(": 1 2 ;"));
 }
+
 #[test]
 #[ignore]
 fn malformed_word_definition() {
@@ -327,6 +338,7 @@ fn calling_non_existing_word() {
     let mut f = Forth::new();
     assert_eq!(Err(Error::UnknownWord), f.eval("1 foo"));
 }
+
 #[test]
 #[ignore]
 fn multiple_definitions() {
@@ -334,6 +346,7 @@ fn multiple_definitions() {
     assert!(f.eval(": one 1 ; : two 2 ; one two +").is_ok());
     assert_eq!(vec![3], f.stack());
 }
+
 #[test]
 #[ignore]
 fn definitions_after_ops() {
@@ -341,6 +354,7 @@ fn definitions_after_ops() {
     assert!(f.eval("1 2 + : addone 1 + ; addone").is_ok());
     assert_eq!(vec![4], f.stack());
 }
+
 #[test]
 #[ignore]
 fn redefine_an_existing_word_with_another_existing_word() {
